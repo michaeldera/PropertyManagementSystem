@@ -5,6 +5,12 @@ VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PropertyManagementSystem", "PropertyManagementSystem\PropertyManagementSystem.csproj", "{A298213D-B2CF-4FE9-B70F-48D92BE2AE43}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PropertyManagementSystem.Logic", "PropertyManagementSystem.Logic\PropertyManagementSystem.Logic.csproj", "{AE94B052-8433-4BFF-958C-3C1C8D5B7FF2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PropertyManagementSystem.Data", "PropertyManagementSystem.Data\PropertyManagementSystem.Data.csproj", "{DA855EB6-D929-4371-8CAE-7BE77D2293A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PropertyManagementSystem.Common", "PropertyManagementSystem.Common\PropertyManagementSystem.Common.csproj", "{2D4AF147-97A8-4FBC-B717-4F0247CC8307}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +21,18 @@ Global
 		{A298213D-B2CF-4FE9-B70F-48D92BE2AE43}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A298213D-B2CF-4FE9-B70F-48D92BE2AE43}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A298213D-B2CF-4FE9-B70F-48D92BE2AE43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE94B052-8433-4BFF-958C-3C1C8D5B7FF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE94B052-8433-4BFF-958C-3C1C8D5B7FF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE94B052-8433-4BFF-958C-3C1C8D5B7FF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE94B052-8433-4BFF-958C-3C1C8D5B7FF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA855EB6-D929-4371-8CAE-7BE77D2293A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA855EB6-D929-4371-8CAE-7BE77D2293A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA855EB6-D929-4371-8CAE-7BE77D2293A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA855EB6-D929-4371-8CAE-7BE77D2293A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D4AF147-97A8-4FBC-B717-4F0247CC8307}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D4AF147-97A8-4FBC-B717-4F0247CC8307}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D4AF147-97A8-4FBC-B717-4F0247CC8307}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D4AF147-97A8-4FBC-B717-4F0247CC8307}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
