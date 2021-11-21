@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Microsoft.EntityFrameworkCore;
+using PropertyManagementSystem.Data;
 
 namespace PropertyManagementSystem
 {
@@ -32,6 +34,9 @@ namespace PropertyManagementSystem
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PropertyManagementSystem", Version = "v1" });
             });
+
+            services.AddDbContext<PropertyManagementSystemContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("PropertyManagementSystemContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
