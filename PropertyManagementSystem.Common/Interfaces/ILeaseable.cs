@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PropertyManagementSystem.Common.Models
+namespace PropertyManagementSystem.Common.Interfaces
 {
-    class Payments
+    public class ILeaseable
     {
     }
 }

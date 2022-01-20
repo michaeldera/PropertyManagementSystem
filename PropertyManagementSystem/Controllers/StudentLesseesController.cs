@@ -12,47 +12,47 @@ namespace PropertyManagementSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StudentsController : ControllerBase
+    public class StudentLesseesController : ControllerBase
     {
         private readonly PropertyManagementSystemContext _context;
 
-        public StudentsController(PropertyManagementSystemContext context)
+        public StudentLesseesController(PropertyManagementSystemContext context)
         {
             _context = context;
         }
 
-        // GET: api/Students
+        // GET: api/StudentLessees
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Student>>> GetStudent()
+        public async Task<ActionResult<IEnumerable<StudentLessee>>> GetStudent()
         {
             return await _context.Student.ToListAsync();
         }
 
-        // GET: api/Students/5
+        // GET: api/StudentLessees/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Student>> GetStudent(int id)
+        public async Task<ActionResult<StudentLessee>> GetStudentLessee(int id)
         {
-            var student = await _context.Student.FindAsync(id);
+            var studentLessee = await _context.Student.FindAsync(id);
 
-            if (student == null)
+            if (studentLessee == null)
             {
                 return NotFound();
             }
 
-            return student;
+            return studentLessee;
         }
 
-        // PUT: api/Students/5
+        // PUT: api/StudentLessees/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutStudent(int id, Student student)
+        public async Task<IActionResult> PutStudentLessee(int id, StudentLessee studentLessee)
         {
-            if (id != student.Id)
+            if (id != studentLessee.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(student).State = EntityState.Modified;
+            _context.Entry(studentLessee).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace PropertyManagementSystem.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!StudentExists(id))
+                if (!StudentLesseeExists(id))
                 {
                     return NotFound();
                 }
@@ -73,34 +73,34 @@ namespace PropertyManagementSystem.Controllers
             return NoContent();
         }
 
-        // POST: api/Students
+        // POST: api/StudentLessees
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Student>> PostStudent(Student student)
+        public async Task<ActionResult<StudentLessee>> PostStudentLessee(StudentLessee studentLessee)
         {
-            _context.Student.Add(student);
+            _context.Student.Add(studentLessee);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetStudent", new { id = student.Id }, student);
+            return CreatedAtAction("GetStudentLessee", new { id = studentLessee.Id }, studentLessee);
         }
 
-        // DELETE: api/Students/5
+        // DELETE: api/StudentLessees/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteStudent(int id)
+        public async Task<IActionResult> DeleteStudentLessee(int id)
         {
-            var student = await _context.Student.FindAsync(id);
-            if (student == null)
+            var studentLessee = await _context.Student.FindAsync(id);
+            if (studentLessee == null)
             {
                 return NotFound();
             }
 
-            _context.Student.Remove(student);
+            _context.Student.Remove(studentLessee);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool StudentExists(int id)
+        private bool StudentLesseeExists(int id)
         {
             return _context.Student.Any(e => e.Id == id);
         }
