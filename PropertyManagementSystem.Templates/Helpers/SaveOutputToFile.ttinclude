@@ -1,0 +1,170 @@
+﻿<#@ template language="C#" hostspecific="True" #>
+<#@ assembly name="System.Xml" #>
+<#@ assembly name="EnvDTE" #>
+<#@ assembly name="EnvDTE80" #>
+<#@ assembly name="Microsoft.VisualStudio.OLE.Interop" #>
+<#@ assembly name="Microsoft.VisualStudio.Shell.Framework" #>
+<#@ assembly name="Microsoft.VisualStudio.Shell.Interop" #>
+<#@ assembly name="Microsoft.VisualStudio.Shell.Interop.8.0" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Xml" #>
+<#@ import namespace="System" #>
+<#@ import namespace="Microsoft.VisualStudio.Shell" #>
+<#@ import namespace="Microsoft.VisualStudio.Shell.Interop" #>
+<#@ import namespace="Microsoft.VisualStudio.TextTemplating" #>
+<#@ import namespace="EnvDTE" #>
+<#@ import namespace="EnvDTE80" #>
+<#+
+void SaveOutput(string projectName, string folderName, string outputFileName, bool overwriteFile)
+{
+    IList<EnvDTE.Project> solutionProjects = GetProjects();
+
+    EnvDTE.Project ourProject = null;
+    foreach (EnvDTE.Project proj in solutionProjects)
+    {
+        if (!string.IsNullOrEmpty(proj.FileName) && proj.Name == projectName)
+        {
+            ourProject = proj;
+            break;
+        }
+    }
+
+    string outputPath = Path.GetDirectoryName(ourProject.FileName) + @"\" + folderName;
+        
+    string outputFilePath = Path.Combine(outputPath, outputFileName);
+    
+    if (overwriteFile || !File.Exists(outputFilePath))
+    {
+        File.WriteAllText(outputFilePath, this.GenerationEnvironment.ToString()); 
+
+        ourProject.ProjectItems.AddFromFile(outputFilePath);
+    }
+
+    this.GenerationEnvironment.Remove(0, this.GenerationEnvironment.Length);
+}
+
+
+void ReplaceFilePart(string projectName, string filePath)
+{
+    IList<EnvDTE.Project> solutionProjects = GetProjects();
+
+    EnvDTE.Project ourProject = null;
+    foreach (EnvDTE.Project proj in solutionProjects)
+    {
+        if (!string.IsNullOrEmpty(proj.FileName) && proj.Name == projectName)
+        {
+            ourProject = proj;
+            break;
+        }
+    }
+
+    var projectPath = Path.GetDirectoryName(ourProject.FileName);
+    if (string.IsNullOrEmpty(projectPath))
+    {
+        projectPath = Path.GetDirectoryName(ourProject.FullName);
+    }
+    string outputFilePath = Path.Combine(projectPath, filePath);
+    bool exists = File.Exists(outputFilePath);
+
+    bool isReplaceStarted = false;
+    List<string> fileLines = new List<string>();
+
+    if (exists)
+    {
+        using (var sr = new StreamReader(outputFilePath))
+        {
+            string currentLine = null;
+
+            while ((currentLine = sr.ReadLine()) != null)
+            {
+                if (currentLine.Equals("-- REPLACE_END --", StringComparison.OrdinalIgnoreCase))
+                {
+                    fileLines.AddRange(this.GenerationEnvironment.ToString().Split(new [] { Environment.NewLine },  StringSplitOptions.None));
+
+                    isReplaceStarted = false;
+                }
+
+                if (!isReplaceStarted)
+                {
+                    fileLines.Add(currentLine);
+                }
+
+                if (currentLine.Equals("-- REPLACE_START --", StringComparison.OrdinalIgnoreCase))
+                {
+                    isReplaceStarted = true;
+                }
+            }
+        }
+    }
+    else
+    {
+        fileLines.AddRange(this.GenerationEnvironment.ToString().Split(new [] { Environment.NewLine },  StringSplitOptions.None));
+    }
+
+    File.WriteAllLines(outputFilePath, fileLines);
+
+    if (!exists)
+    {
+        ourProject.ProjectItems.AddFromFile(outputFilePath);
+    }
+
+    this.GenerationEnvironment.Remove(0, this.GenerationEnvironment.Length);
+}
+
+public IList<Project> GetProjects()
+{
+    IServiceProvider hostServiceProvider = (IServiceProvider)Host;
+
+    EnvDTE.DTE dte = (EnvDTE.DTE)hostServiceProvider.GetService(typeof(EnvDTE.DTE));
+        
+    Projects projects = dte.Solution.Projects;
+    List<Project> list = new List<Project>();
+    var item = projects.GetEnumerator();
+    while (item.MoveNext())
+    {
+        var project = item.Current as Project;
+        if (project == null)
+        {
+            continue;
+        }
+
+        if (project.Kind == ProjectKinds.vsProjectKindSolutionFolder)
+        {
+            list.AddRange(GetSolutionFolderProjects(project));
+        }
+        else
+        {
+            list.Add(project);
+        }
+    }
+
+    return list;
+}
+
+private static IEnumerable<Project> GetSolutionFolderProjects(Project solutionFolder)
+{
+    List<Project> list = new List<Project>();
+    for (var i = 1; i <= solutionFolder.ProjectItems.Count; i++)
+    {
+        var subProject = solutionFolder.ProjectItems.Item(i).SubProject;
+        if (subProject == null)
+        {
+            continue;
+        }
+
+        // If this is another solution folder, do a recursive call, otherwise add
+        if (subProject.Kind == ProjectKinds.vsProjectKindSolutionFolder)
+        {
+            list.AddRange(GetSolutionFolderProjects(subProject));
+        }
+        else
+        {
+            list.Add(subProject);
+        }
+    }
+    return list;
+}
+#>

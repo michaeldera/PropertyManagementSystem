@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PropertyManagementSystem.Common.Models;
+using PropertyManagementSystem.Data.Extensions;
 
 namespace PropertyManagementSystem.Data
 {

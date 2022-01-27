@@ -1,0 +1,60 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PropertyManagementSystem.Data\PropertyManagementSystem.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Helpers\LogicGenerator.Helper.ttinclude">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>LogicGenerator.Helper.cs</LastGenOutput>
+    </None>
+    <None Update="Helpers\SaveOutputToFile.ttinclude">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>SaveOutputToFile.cs</LastGenOutput>
+    </None>
+    <None Update="Logic\ProviderLogicInterfaceGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ProviderLogicInterfaceGenerator.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Helpers\LogicGenerator.Helper.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LogicGenerator.Helper.ttinclude</DependentUpon>
+    </Compile>
+    <Compile Update="Helpers\SaveOutputToFile.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>SaveOutputToFile.ttinclude</DependentUpon>
+    </Compile>
+    <Compile Update="Logic\InterfaceGenerator.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>InterfaceGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Logic\LogicInterfaceGenerator.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LogicInterfaceGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Logic\ProviderLogicInterfaceGenerator.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ProviderLogicInterfaceGenerator.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>

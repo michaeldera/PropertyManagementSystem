@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PropertyManagementSystem.Data\PropertyManagementSystem.Data.csproj" />
-    <ProjectReference Include="..\PropertyManagementSystem.Logic\PropertyManagementSystem.Logic.csproj" />
+    <ProjectReference Include="..\PropertyManagementSystem.Logic\PropertyManagementSystem.ProviderLogic.csproj" />
   </ItemGroup>
 
 </Project>
