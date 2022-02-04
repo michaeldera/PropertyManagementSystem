@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'property-sys-api'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4C91EF6CA03745F7A7E56F884A349E2F }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9DE1232995344A898772753B1EA3324C }}
           package: .
