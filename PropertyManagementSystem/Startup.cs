@@ -36,8 +36,11 @@ namespace PropertyManagementSystem
             });
 
             services.AddDbContext<PropertyManagementSystemContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("defaultConnection")));
+                    options.UseSqlServer(Configuration.GetConnectionString("defaultConnection"), b => b.MigrationsAssembly("PropertyManagementSystem")));
+            //services.AddDbContext<PropertyManagementSystemContext>(options =>
+                        //options.Use;
         }
+    
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
